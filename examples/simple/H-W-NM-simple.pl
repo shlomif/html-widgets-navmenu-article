@@ -34,15 +34,6 @@ a:hover { background-color : palegreen; }
 }
 EOF
 
-sub mymkdir
-{
-    my $dir = shift;
-    if (! -e "$dir")
-    {
-        mkdir("$dir");
-    }
-}
-
 sub create_file_dirs
 {
     my $path = shift;
@@ -53,7 +44,7 @@ sub create_file_dirs
     for(my $i=0;$i<@components;$i++)
     {
         my $dir_path = join("/", @components[0..$i]);
-        mymkdir($dir_path);
+        mkdir($dir_path) unless (-e $dir_path);
     }
 }
 
@@ -157,13 +148,17 @@ foreach my $page (@pages)
     open my $out, ">", $full_path;
     
     print {$out} <<"EOF";
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
 <html>
 <head>
 <title>$title</title>
-</head>
 <style type="text/css">
 $css_style
 </style>
+</head>
 <body>
 <div class="navbar">
 $nav_menu_text
@@ -173,7 +168,6 @@ $nav_menu_text
 $content
 </div>
 </body>
-</head>
 </html>
 EOF
 
