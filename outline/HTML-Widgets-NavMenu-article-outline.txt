@@ -1,0 +1,9 @@
+* What are navigation menus? Give examples from sites.
+    - http://www.shlomifish.org/
+    - http://perl-begin.berlios.de/
+    - http://www.paulgraham.com/
+    
+* Common Patterns in Navigation Menus and Site Flow
+    - Expansion and unexpansion.
+    - Next/Prev/Up links to traverse a site.
+    - 
