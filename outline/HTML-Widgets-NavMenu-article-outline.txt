@@ -6,7 +6,7 @@
 * Common Patterns in Navigation Menus and Site Flow
     - A Tree of Pages
     - Expansion and unexpansion. (based on the current location)
-    - Next/Prev/Up links to traverse a site.
+    - Next/Previous/Up links to traverse a site.
     - Site maps.
     - Breadcrumbs trail.
     - Hidden Pages (pages that appear in the site flow, but not in the
