@@ -1,0 +1,148 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use HTML::Widgets::NavMenu;
+
+sub mymkdir
+{
+    my $dir = shift;
+    if (! -e "$dir")
+    {
+        mkdir("$dir");
+    }
+}
+
+sub create_file_dirs
+{
+    my $path = shift;
+    my ($dir, @components);
+    @components = split(/\//, $path);
+    # Remove the filename.
+    pop(@components);
+    for(my $i=0;$i<@components;$i++)
+    {
+        my $dir_path = join("/", @components[0..$i]);
+        mymkdir($dir_path);
+    }
+}
+
+my $nav_menu_tree = 
+{
+    'host' => "default",
+    'text' => "Top 1",
+    'title' => "T1 Title",
+    'subs' =>
+    [
+        {
+            'text' => "Home",
+            'url' => "",
+        },
+        {
+            'text' => "About Me",
+            'title' => "About Myself",
+            'url' => "me/",
+        },
+        {
+            'text' => "Links",
+            'title' => "Hyperlinks to other Pages",
+            'url' => "links/",
+        },
+    ],
+};
+
+my %hosts =
+(
+    'hosts' => { 'default' => { 'base_url' => "http://www.hello.com/" }, },
+);
+
+my @pages =
+(
+    {
+        'path' => "",
+        'title' => "John Doe's Homepage",
+        'content' => <<'EOF',
+<p>
+Hi! This is the homepage of John Doe. I hope you enjoy your stay here.
+</p>
+EOF
+    },
+    {
+        'path' => "me/",
+        'title' => "About Myself",
+        'content' => <<'EOF',
+<p>
+My name is John Doe and I've been exploring the art and science of creating
+navigation menus for 10 years now. I find navigation menus to be a fascinating
+subject, and think everyone should be interested in them.
+</p>
+EOF
+    },
+    {
+        'path' => "links/",
+        'title' => "Cool Links",
+        'content' => <<'EOF',
+<h2>Perl-Related Links</h2>
+
+<ul>
+<li>
+<a href="http://www.perl.com/">Perl.com - a site with Perl articles</a>.
+</li>
+<li>
+<a href="http://www.perl.org/">Perl.org</a> - the homepage of the Perl 
+community.
+</li>
+<li>
+<a href="http://perl-begin.berlios.de/">Perl Beginners' Site</a>
+</li>
+</ul>
+EOF
+    },
+);
+
+foreach my $page (@pages)
+{
+    my $path = $page->{'path'};
+    my $title = $page->{'title'};
+    my $content = $page->{'content'};
+    my $nav_menu = 
+        HTML::Widgets::NavMenu->new(
+            path_info => "/$path",
+            current_host => "default",
+            hosts => \%hosts,
+            tree_contents => $nav_menu_tree,
+        );
+    
+    my $file_path = $path;
+    if (($real_path =~ m{/$}) || ($real_path eq ""))
+    {
+        $file_path .= "index.html";
+    }
+    my $full_path = "dest/$file_path";
+    create_file_dirs($full_path);
+    open my $out, ">", $full_path;
+    
+    my $nav_menu_text = join("\n", $nav_menu->render());
+    
+    print {$out} <<"EOF";
+<html>
+<head>
+<title>$title</title>
+</head>
+<body>
+<div class="navbar">
+$nav_menu_text
+</div>
+<div class="body">
+<h1>$title</h1>
+$content
+</div>
+</body>
+</head>
+</html>
+EOF
+
+    close($out);
+}
+
