@@ -74,8 +74,34 @@ current page, a <b>"Contents" link</b> to go to the main page, and so on.
 These link can be implemented using the HTML <tt>&lt;head&gt;</tt> tag 
 <tt>&lt;link rel="next" href="" /&gt;</tt>. directives. These in turn are
 supported by Mozilla, Mozilla Firefox and Opera. Or they can be visible in 
-the HTML.
+the HTML, as is the case with <a href="http://www.gnu.org/software/make/manual/html_node/make_toc.html">GNU Documentation</a>.
 </p>
+
+<p>
+Generally, if we organize the links in a navigation menu, we may expect these
+links to traverse the tree node by node.
+</p>
+
+<h3>Site Maps and Breadcrumb Trails</h3>
+
+<p>
+Some other navigation aids provided by sites include a site map (as 
+<a href="http://www.catb.org/~esr/sitemap.html">the one on Eric S. Raymond's
+homepage</a>), and a breadcrumbs trail. A breadcrumbs trail is a path
+of the components of the navigation menu that leads to the current page.
+An <a href="http://search.cpan.org/dist/Module-Build/lib/Module/Build/Cookbook.pm">example can be found on search.cpan.org</a> at the top. 
+("Ken Williams &gt; Module-Build &gt; Module::Build::Cookbook" in our case).
+</p>
+
+<h3>Hidden Pages and Skipped Pages</h3>
+
+<p>
+Hidden pages are part of the site flow (i.e: the next/previous scheme) but
+don't appear in the navigation menu. Skipped pages are the opposite: they
+appear in the navigation menu, but are not part of the site flow.
+</p>
+
+
 
 </body>
 </html>
