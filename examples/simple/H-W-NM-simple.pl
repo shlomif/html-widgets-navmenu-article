@@ -5,6 +5,35 @@ use warnings;
 
 use HTML::Widgets::NavMenu;
 
+my $css_style = <<"EOF";
+a:hover { background-color : palegreen; }
+.body {
+    float : left;
+    width : 70%;
+    padding-bottom : 1em;
+    padding-top : 0em;
+    margin-left : 1em;
+    background-color : white
+    
+}
+.navbar {
+    float : left;
+    background-color : moccasin; 
+    width : 20%;
+    border-color : black;
+    border-width : thick;
+    border-style : double;
+    padding-left : 0.5em;
+}
+.navbar ul
+{
+    font-family: sans-serif;
+    font-size : small;
+    margin-left : 0.3em;
+    padding-left : 1em;
+}
+EOF
+
 sub mymkdir
 {
     my $dir = shift;
@@ -113,9 +142,13 @@ foreach my $page (@pages)
             hosts => \%hosts,
             tree_contents => $nav_menu_tree,
         );
+
+    my $nav_menu_results = $nav_menu->render();
+
+    my $nav_menu_text = join("\n", @{$nav_menu_results->{'html'}});
     
     my $file_path = $path;
-    if (($real_path =~ m{/$}) || ($real_path eq ""))
+    if (($file_path =~ m{/$}) || ($file_path eq ""))
     {
         $file_path .= "index.html";
     }
@@ -123,13 +156,14 @@ foreach my $page (@pages)
     create_file_dirs($full_path);
     open my $out, ">", $full_path;
     
-    my $nav_menu_text = join("\n", $nav_menu->render());
-    
     print {$out} <<"EOF";
 <html>
 <head>
 <title>$title</title>
 </head>
+<style type="text/css">
+$css_style
+</style>
 <body>
 <div class="navbar">
 $nav_menu_text
