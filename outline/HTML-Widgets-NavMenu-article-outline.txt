@@ -4,6 +4,25 @@
     - http://www.paulgraham.com/
     
 * Common Patterns in Navigation Menus and Site Flow
-    - Expansion and unexpansion.
+    - A Tree of Pages
+    - Expansion and unexpansion. (based on the current location)
     - Next/Prev/Up links to traverse a site.
-    - 
+    - Site maps.
+    - Breadcrumbs trail.
+    - Hidden Pages (pages that appear in the site flow, but not in the
+    navigation menu).
+    - Skipped Pages (page that appear in the navigation menu, but not in
+    the site flow).
+
+* Introducing HTML::Widgets::NavMenu
+    - A CPAN module.
+    - Supports all these patterns (and some other ones)
+    - A comprehensive Test suite.
+    - Still actively maintained.
+
+* A simple example - a navigation menu with a home page and two sub pages.
+
+* A more complex example with more pages (but no added flare).
+
+* 
+    
