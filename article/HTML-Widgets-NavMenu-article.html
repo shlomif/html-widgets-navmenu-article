@@ -21,10 +21,61 @@ using HTML::Widgets::NavMenu</h1>
 </p>
 
 <p>
-<b>Version Control ID</b>: <tt>$Id: devel-linetrace-article.html 1342 2004-12-26 12:01:55Z  $</tt>
+<b>Version Control ID</b>: <tt>$Id$</tt>
 </p>
 
-<h2>What are Navigation Menus?</h2>
+<h2>What are Web-site Navigation Menus?</h2>
+
+<p>
+Navigation menus are a group of links given at one side of the page that allows
+one to navigate to different places of a web-site. Navigation menus allow 
+visitors of one's site to explore other pages of the site, and to find
+what they want more easily. As such, they can be a useful addition to one's 
+web-site.
+</p>
+
+<p>
+The web is not short of examples for navigation menus. A simple navigation menu made out of images can be found on <a href="http://www.paulgraham.com/">Paul 
+Graham's homepage</a>. One can see that it doesn't change as the site visitor
+move to different pages of the site. A more sophisticated one can be found
+on <a href="http://www.kde.org/">the homepage of the KDE desktop environment.</a>. There we see that if we press on 
+<a href="http://www.kde.org/screenshots/">the link to the screenshots</a> we
+get a sub-menu with the different KDE versions with which the screenshots were
+taken. Similar expansions and un-expansions of the menu are present for some 
+of its other items.
+</p>
+
+<h2>Common Patterns in Navigation Menus and Site Flow</h2>
+
+<p>
+One can identify several patterns in maintaining navigation menus and general
+site flow.
+</p>
+
+<h3>A Tree of Items</h3>
+
+<p>
+Usually, the items in the navigation menus are organized in a tree (as is the
+case for the KDE site) or a flat list. Sometimes, branches of the tree can
+<b>expand</b> or un-expand depending on the current page. This is done so the
+entire tree won't be displayed at once.
+</p>
+
+<h3>Next/Previous/Up Links to Traverse a Site</h3>
+
+<p>
+Many sites provide links to traverse the pages of the site in order: A 
+<b>"Next" Link</b> to go to the next page, a <b>"Previous" Link</b> to go 
+to the previous page, an <b>"Up" link</b> to go to the section containing the
+current page, a <b>"Contents" link</b> to go to the main page, and so on.
+</p>
+
+<p>
+These link can be implemented using the HTML <tt>&lt;head&gt;</tt> tag 
+<tt>&lt;link rel="next" href="" /&gt;</tt>. directives. These in turn are
+supported by Mozilla, Mozilla Firefox and Opera. Or they can be visible in 
+the HTML.
+</p>
 
 </body>
 </html>
