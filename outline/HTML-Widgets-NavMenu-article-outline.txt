@@ -16,7 +16,7 @@
 
 * Introducing HTML::Widgets::NavMenu
     - A CPAN module.
-    - Supports all these patterns (and some other ones)
+    - Supports all these patterns (and some others)
     - A comprehensive Test suite.
     - Still actively maintained.
 
@@ -24,5 +24,16 @@
 
 * A more complex example with more pages (but no added flare).
 
-* 
-    
+* Adding expansion and unexpansion to the complex example.
+
+* Adding skipped pages to the complex example.
+
+* Adding navigation links, a breadcrumbs trail and a site map to the site.
+
+* Making some pages hidden.
+
+* Conclusion:
+    - HTML::Widgets::NavMenu can be used to maintain navigation menus and 
+    organize site flow. 
+    - You no longer have an excuse for not having such niceties on your 
+    sites.
