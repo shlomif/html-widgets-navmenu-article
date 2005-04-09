@@ -1,0 +1,397 @@
+<define-tag exalink whitespace="delete">
+http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/article/examples/%0
+</define-tag>
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<title>Maintaining Navigation Menus and Site Flow
+using HTML::Widgets::NavMenu</title>
+<style type="text/css">
+body { background-color : white; }
+tt, pre { color : BlueViolet; }
+a:hover { background-color : palegreen; }
+h1 { background-color : #96dd9a; }
+h2 { background-color : #ede550; }
+h3 { background-color : #8080FF; }
+</style>
+</head>
+<body>
+<h1>Maintaining Navigation Menus and Site Flow
+using HTML::Widgets::NavMenu</h1>
+
+<p>
+<b>Written By:</b> <a href="http://www.shlomifish.org/">Shlomi Fish</a>
+</p>
+
+<p>
+<b>Version Control ID</b>: <tt>$Id$</tt>
+</p>
+
+<h2>What are Web-site Navigation Menus?</h2>
+
+<p>
+Navigation menus are a group of links given at one side of the page that allows
+one to navigate to different places of a web-site. Navigation menus allow 
+visitors of one's site to explore other pages of the site, and to find
+what they want more easily. As such, they can be a useful addition to one's 
+web-site.
+</p>
+
+<p>
+The web is not short of examples for navigation menus. A simple navigation menu made out of images can be found on <a href="http://www.paulgraham.com/">Paul 
+Graham's homepage</a>. One can see that it doesn't change as the site visitor
+move to different pages of the site. A more sophisticated one can be found
+on <a href="http://www.kde.org/">the homepage of the KDE desktop environment.</a>. There we see that if we press on 
+<a href="http://www.kde.org/screenshots/">the link to the screenshots</a> we
+get a sub-menu with the different KDE versions with which the screenshots were
+taken. Similar expansions and un-expansions of the menu are present for some 
+of its other items.
+</p>
+
+<h2>Common Patterns in Navigation Menus and Site Flow</h2>
+
+<p>
+One can identify several patterns in maintaining navigation menus and general
+site flow.
+</p>
+
+<h3>A Tree of Items</h3>
+
+<p>
+Usually, the items in the navigation menus are organized in a tree (as is the
+case for the KDE site) or a flat list. Sometimes, branches of the tree can
+<b>expand</b> or un-expand depending on the current page. This is done so the
+entire tree won't be displayed at once.
+</p>
+
+<h3>Next/Previous/Up Links to Traverse a Site</h3>
+
+<p>
+Many sites provide links to traverse the pages of the site in order: A 
+<b>"Next" Link</b> to go to the next page, a <b>"Previous" Link</b> to go 
+to the previous page, an <b>"Up" link</b> to go to the section containing the
+current page, a <b>"Contents" link</b> to go to the main page, and so on.
+</p>
+
+<p>
+These link can be implemented using the HTML <tt>&lt;head&gt;</tt> tag 
+<tt>&lt;link rel="next" href="" /&gt;</tt>. directives. These in turn are
+supported by Mozilla, Mozilla Firefox and Opera. Or they can be visible in 
+the HTML, as is the case with <a href="http://www.gnu.org/software/make/manual/html_node/make_toc.html">GNU Documentation</a>.
+</p>
+
+<p>
+Generally, if we organize the links in a navigation menu, we may expect these
+links to traverse the tree node by node.
+</p>
+
+<h3>Site Maps and Breadcrumb Trails</h3>
+
+<p>
+Some other navigation aids provided by sites include a site map (as 
+<a href="http://www.catb.org/~esr/sitemap.html">the one on Eric S. Raymond's
+homepage</a>), and a breadcrumbs trail. A breadcrumbs trail is a path
+of the components of the navigation menu that leads to the current page.
+An <a href="http://search.cpan.org/dist/Module-Build/lib/Module/Build/Cookbook.pm">example can be found on search.cpan.org</a> at the top. 
+("Ken Williams &gt; Module-Build &gt; Module::Build::Cookbook" in our case).
+</p>
+
+<h3>Hidden Pages and Skipped Pages</h3>
+
+<p>
+Hidden pages are part of the site flow (i.e: the next/previous scheme) but
+don't appear in the navigation menu. Skipped pages are the opposite: they
+appear in the navigation menu, but are not part of the site flow.
+</p>
+
+<h2>Introducing HTML::Widgets::NavMenu</h2>
+
+<p>
+So how can we do all of this? 
+<a href="http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/">HTML::Widgets::NavMenu</a> 
+is a CPAN module for maintaining navigation menus and site flow
+in general. It supports all of the mentioned patterns and some others, has a
+comprehensive test suite, and still actively maintained. I have successfully
+used this module to maintain the site flow logic for such sites as
+<a href="http://www.shlomifish.org/">my personal homepage</a>, and
+<a href="http://perl-begin.berlios.de/">the Perl Beginners' Site</a>. Lately,
+it was used by a different person for his own site.
+</p>
+
+<p>
+Using this module, one can easily generate and maintain such navigation menus
+in Perl. The rest of the article will show you how to do it.
+</p>
+
+<h2>A Simple Example</h2>
+
+<p>
+We'll start with a simple example - a navigation tree that contains a homepage
+and two other pages.
+</p>
+
+<p>
+You can see 
+<a href="<exalink "simple/H-W-NM-simple.pl" />">the 
+complete code for this example</a>, and please go over it and use it as a 
+reference. We will go over it now, to explain it.
+</p>
+
+<pre>
+\#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use HTML::Widgets::NavMenu;
+</pre>
+
+<p>
+A standard beginning of a Perl script, and then we import our module.
+</p>
+
+<pre>
+my $css_style = &lt;&lt;"EOF";
+a:hover { background-color : palegreen; }
+.body {
+.
+.
+.
+EOF
+</pre>
+<p>
+We define a CSS stylesheet to make things nicer visually.
+</p>
+<pre>
+sub create_file_dirs
+{
+    my $path = shift;
+    my ($dir, @components);
+    @components = split(/\//, $path);
+    \# Remove the filename.
+    pop(@components);
+    for(my $i=0;$i&lt;@components;$i++)
+    {
+        my $dir_path = join("/", @components[0..$i]);
+        mkdir($dir_path) unless (-e $dir_path);
+    }
+}
+</pre>
+<p>
+What this function does is make sure a file can be written to, by creating
+all the directories up to its residing directory. So for example if the file
+is <tt>foo/bar/baz/myfile.txt</tt>, it will make sure <tt>foo</tt>, 
+<tt>foo/bar</tt>, and <tt>foo/bar/baz</tt> are created. This function will be
+needed later.
+</p>
+<pre>
+my $nav_menu_tree = 
+{
+    'host' =&gt; "default",
+    'text' =&gt; "Top 1",
+    'title' =&gt; "T1 Title",
+    'subs' =&gt;
+    [
+        {
+            'text' =&gt; "Home",
+            'url' =&gt; "",
+        },
+        {
+            'text' =&gt; "About Me",
+            'title' =&gt; "About Myself",
+            'url' =&gt; "me/",
+        },
+        {
+            'text' =&gt; "Links",
+            'title' =&gt; "Hyperlinks to other Pages",
+            'url' =&gt; "links/",
+        },
+    ],
+};
+</pre>
+<p>
+Now this is important. This is the tree that describes the navigation menu.
+It is a standard nested Perl 5 data structure, with well-specified keys. Let's
+go over the keys one by one:
+</p>
+<ul>
+<li>
+<tt>host</tt> - this is a specification of the host on which the sub-tree
+starting from that node resides. HTML::Widgets::NavMenu menus can span several
+hosts on several domains. In our case, we're using just one host, so we just
+say "default" here.
+</li>
+<li>
+<tt>text</tt> - this indicates what will be placed inside the 
+&lt;a&gt;...&lt;/a&gt; tag (or alternatively, the &lt;b&gt; tag if it's
+the current page). 
+</li>
+<li>
+<tt>title</tt> - this is a text that will be placed as a <tt>title</tt> 
+attribute to a hyperlink. (which is usually displayed as a tooltip). It can 
+be used to put some more detailed information, and keep the link text itself
+short.
+</li>
+<li>
+<tt>url</tt> - this is the path within the host that this item resides in. Note
+that all URLs are relative to the top of the host, and not the URL of their
+super-node. So if the super-node has a path of <tt>software/</tt> and you wish
+the sub-node to have a path of <tt>software/gimp/</tt>, you need to specify
+<tt>url =&gt; 'software/gimp/'</tt>.
+</li>
+<li>
+<tt>subs</tt> - this points to an array reference that contains the node's
+sub-items. Normally, this will cause it to be rendered in a sub-menu.
+</li>
+</ul>
+
+<p>
+One final note: the top item is not rendered by HTML::Widgets::NavMenu. The
+rendering starts from its sub-items.
+</p>
+
+<pre>
+my %hosts =
+(
+    'hosts' =&gt; 
+    { 
+        'default' =&gt; 
+        { 
+            'base_url' =&gt; ("http://web-cpan.berlios.de/modules/" . 
+                "HTML-Widgets-NavMenu/article/examples/simple/dest/"),
+        }, 
+    },
+);
+</pre>
+
+<p>
+This is the hosts map, that holds the hosts for the site. As you can see,
+we only have one host which is called <tt>default</tt>.
+</p>
+
+<pre>
+my @pages =
+(
+    {
+        'path' =&gt; "",
+        'title' =&gt; "John Doe's Homepage",
+        'content' =&gt; &lt;&lt;'EOF',
+&lt;p&gt;
+Hi! This is the homepage of John Doe. I hope you enjoy your stay here.
+&lt;/p&gt;
+EOF
+    },
+    .
+    .
+    .
+);
+</pre>
+
+<p>
+The purpose of this array is to enumerate the pages, and give each one 
+the &lt;title&gt; tag and &lt;h1&gt; title and the content that it contains.
+It's not something that HTML-Widgets-NavMenu - it is something that this script
+uses to render meaningful pages.
+</p>
+
+<pre>
+foreach my $page (@pages)
+{
+    my $path = $page-&gt;{'path'};
+    my $title = $page-&gt;{'title'};
+    my $content = $page-&gt;{'content'};
+    my $nav_menu = 
+        HTML::Widgets::NavMenu-&gt;new(
+            path_info =&gt; "/$path",
+            current_host =&gt; "default",
+            hosts =&gt; \%hosts,
+            tree_contents =&gt; $nav_menu_tree,
+        );
+
+    my $nav_menu_results = $nav_menu-&gt;render();
+
+    my $nav_menu_text = join("\n", @{$nav_menu_results-&gt;{'html'}});
+    
+    my $file_path = $path;
+    if (($file_path =~ m{/$}) || ($file_path eq ""))
+    {
+        $file_path .= "index.html";
+    }
+    my $full_path = "dest/$file_path";
+    create_file_dirs($full_path);
+    open my $out, "&gt;", $full_path;
+    
+    print {$out} &lt;&lt;"EOF";
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;    
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;$title&lt;/title&gt;
+&lt;style type="text/css"&gt;
+$css_style
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="navbar"&gt;
+$nav_menu_text
+&lt;/div&gt;
+&lt;div class="body"&gt;
+&lt;h1&gt;$title&lt;/h1&gt;
+$content
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+EOF
+
+    close($out);
+}
+</pre>
+
+<p>
+This loop iterates over all the pages and renders each one in turn. The lines
+that most concern us are:
+</p>
+
+<pre>
+    my $nav_menu = 
+        HTML::Widgets::NavMenu-&gt;new(
+            path_info =&gt; "/$path",
+            current_host =&gt; "default",
+            hosts =&gt; \%hosts,
+            tree_contents =&gt; $nav_menu_tree,
+        );
+
+    my $nav_menu_results = $nav_menu-&gt;render();
+
+    my $nav_menu_text = join("\n", @{$nav_menu_results-&gt;{'html'}});
+</pre>
+
+<p>
+We can see that a new navigation menu is initialized. It is given four named 
+parameters. <tt>path_info</tt> is the path within the host. Note that as 
+opposed to the paths in the navigation menu, it starts with a slash. This is
+to allow some CGI-related redirections. <tt>current_host</tt> is the current
+host (again - it's <tt>default</tt>). Finally, <tt>hosts</tt> and 
+<tt>tree_contents</tt> point to hosts and the tree of contents.
+</p>
+<p>
+We call the object <tt>render()</tt> method, to return the results. The results
+are returned in a hash reference, with the navigation menu results as an 
+array of tags pointed by the <tt>html</tt> key. So we join them using join
+and return them.
+</p>
+<p>
+We get <a href="<exalink "simple/dest/" />">this result</a>. Three entries,
+placed in an <tt>&lt;ul&gt;</tt>. When a page is visited, the corresponding
+entry is turned into bold, and its link cancelled.
+</p>
+
+</body>
+</html>
+
