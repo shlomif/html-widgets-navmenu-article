@@ -74,7 +74,14 @@ my $nav_menu_tree =
 
 my %hosts =
 (
-    'hosts' => { 'default' => { 'base_url' => "http://www.hello.com/" }, },
+    'hosts' => 
+    { 
+        'default' => 
+        { 
+            'base_url' => ("http://web-cpan.berlios.de/modules/" . 
+                "HTML-Widgets-NavMenu/article/examples/simple/dest/"),
+        }, 
+    },
 );
 
 my @pages =
