@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use HTML::Widgets::NavMenu;
+use File::Path;
 
 my $css_style = <<"EOF";
 a:hover { background-color : palegreen; }
@@ -330,7 +331,8 @@ foreach my $page (@pages)
         $file_path .= "index.html";
     }
     my $full_path = "dest/$file_path";
-    create_file_dirs($full_path);
+    $full_path =~ m{^(.*)/[^/]+$};
+    mkpath($1, 0, 0755);
     open my $out, ">", $full_path;
     
     print {$out} <<"EOF";
