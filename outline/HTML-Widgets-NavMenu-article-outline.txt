@@ -24,11 +24,11 @@
 
 * A more complex example with more pages (but no added flare).
 
+* Adding navigation links, a breadcrumbs trail and a site map to the site.
+
 * Adding expansion and unexpansion to the complex example.
 
 * Adding skipped pages to the complex example.
-
-* Adding navigation links, a breadcrumbs trail and a site map to the site.
 
 * Making some pages hidden.
 

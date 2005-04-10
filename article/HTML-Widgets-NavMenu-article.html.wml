@@ -392,6 +392,19 @@ placed in an <tt>&lt;ul&gt;</tt>. When a page is visited, the corresponding
 entry is turned into bold, and its link cancelled.
 </p>
 
+<h2>A More Complex Example</h2>
+
+<p>
+Now let's look at <a href="<exalink "complex/H-W-NM-complex.pl" />">a more 
+complex example</a>. This time the tree is considerably larger and is also
+nested. There are now <tt>'subs'</tt> of other pages.
+</p>
+
+<p>
+The <a href="<exalink "complex/dest/" />">final site</a> has a menu. When 
+accessing a page (for exmple <a href="<exalink "complex/dest/me/" />">the About
+Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
+</p>
 </body>
 </html>
 
