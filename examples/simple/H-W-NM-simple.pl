@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use HTML::Widgets::NavMenu;
+use File::Path;
 
 my $css_style = <<"EOF";
 a:hover { background-color : palegreen; }
@@ -33,20 +34,6 @@ a:hover { background-color : palegreen; }
     padding-left : 1em;
 }
 EOF
-
-sub create_file_dirs
-{
-    my $path = shift;
-    my ($dir, @components);
-    @components = split(/\//, $path);
-    # Remove the filename.
-    pop(@components);
-    for(my $i=0;$i<@components;$i++)
-    {
-        my $dir_path = join("/", @components[0..$i]);
-        mkdir($dir_path) unless (-e $dir_path);
-    }
-}
 
 my $nav_menu_tree = 
 {
@@ -151,7 +138,8 @@ foreach my $page (@pages)
         $file_path .= "index.html";
     }
     my $full_path = "dest/$file_path";
-    create_file_dirs($full_path);
+    $full_path =~ m{^(.*)/[^/]+$};
+    mkpath($1, 0, 0755);
     open my $out, ">", $full_path;
     
     print {$out} <<"EOF";
