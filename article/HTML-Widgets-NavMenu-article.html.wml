@@ -148,10 +148,12 @@ use strict;
 use warnings;
 
 use HTML::Widgets::NavMenu;
+use File::Path;
 </pre>
 
 <p>
-A standard beginning of a Perl script, and then we import our module.
+A standard beginning of a Perl script, and then we import our module, and the
+<tt>File::Path</tt> module which will be needed later.
 </p>
 
 <pre>
@@ -165,28 +167,6 @@ EOF
 </pre>
 <p>
 We define a CSS stylesheet to make things nicer visually.
-</p>
-<pre>
-sub create_file_dirs
-{
-    my $path = shift;
-    my ($dir, @components);
-    @components = split(/\//, $path);
-    \# Remove the filename.
-    pop(@components);
-    for(my $i=0;$i&lt;@components;$i++)
-    {
-        my $dir_path = join("/", @components[0..$i]);
-        mkdir($dir_path) unless (-e $dir_path);
-    }
-}
-</pre>
-<p>
-What this function does is make sure a file can be written to, by creating
-all the directories up to its residing directory. So for example if the file
-is <tt>foo/bar/baz/myfile.txt</tt>, it will make sure <tt>foo</tt>, 
-<tt>foo/bar</tt>, and <tt>foo/bar/baz</tt> are created. This function will be
-needed later.
 </p>
 <pre>
 my $nav_menu_tree = 
@@ -322,7 +302,8 @@ foreach my $page (@pages)
         $file_path .= "index.html";
     }
     my $full_path = "dest/$file_path";
-    create_file_dirs($full_path);
+    $full_path =~ m{^(.*)/[^/]+$};
+    mkpath($1, 0, 0755);
     open my $out, "&gt;", $full_path;
     
     print {$out} &lt;&lt;"EOF";
@@ -354,8 +335,9 @@ EOF
 </pre>
 
 <p>
-This loop iterates over all the pages and renders each one in turn. The lines
-that most concern us are:
+This loop iterates over all the pages and renders each one in turn. If the
+directory up to the file does not exist it is constructed using the 
+<tt>mkpath()</tt> function. The lines that most concern us are:
 </p>
 
 <pre>
