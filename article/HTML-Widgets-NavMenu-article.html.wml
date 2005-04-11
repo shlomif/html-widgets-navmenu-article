@@ -371,7 +371,7 @@ and return them.
 <p>
 We get <a href="<exalink "simple/dest/" />">this result</a>. Three entries,
 placed in an <tt>&lt;ul&gt;</tt>. When a page is visited, the corresponding
-entry is turned into bold, and its link cancelled.
+entry is turned into bold, and its link canceled.
 </p>
 
 <h2>A More Complex Example</h2>
@@ -384,7 +384,7 @@ nested. There are now <tt>'subs'</tt> of other pages.
 
 <p>
 The <a href="<exalink "complex/dest/" />">final site</a> has a menu. When 
-accessing a page (for exmple <a href="<exalink "complex/dest/me/" />">the About
+accessing a page (for example <a href="<exalink "complex/dest/me/" />">the About
 Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 </p>
 
