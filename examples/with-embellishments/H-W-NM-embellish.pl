@@ -312,6 +312,12 @@ my $nav_menu_tree =
             'url' => "links.html",
             'title' => "An incomplete list of links I find cool and/or useful.",
         },
+        {
+            'text' => "Site Map",
+            'url' => "site-map/",
+            'title' => "A site map for the site with all the pages",
+        },
+
     ],
 };
 
@@ -341,12 +347,29 @@ my @page_pathes =
 "essays/", "essays/Index/", "essays/open-source/", "essays/life/", 
 "links.html");
 
-
 my @pages = 
     (map { 
         +{ 'path' => $_, 'title' => "Title for $_", 
         'content' => "<p>Content for $_</p>" }
     } @page_pathes);
+
+# Add the site-map page.
+{
+    my $site_map_path = "site-map/";
+    my $site_map_generator = 
+        HTML::Widgets::NavMenu->new(
+            path_info => "/$site_map_path",
+            current_host => "default",
+            hosts => \%hosts,
+            tree_contents => $nav_menu_tree
+        );
+    push @pages,
+    {
+        'path' => $site_map_path,
+        'title' => "Site Map",
+        'content' => join("\n", @{$site_map_generator->gen_site_map()}),
+    };
+};
 
 foreach my $page (@pages)
 {
