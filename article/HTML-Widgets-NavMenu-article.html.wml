@@ -387,6 +387,68 @@ The <a href="<exalink "complex/dest/" />">final site</a> has a menu. When
 accessing a page (for exmple <a href="<exalink "complex/dest/me/" />">the About
 Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 </p>
+
+<h2>Adding More Navigation Aids</h2>
+
+<p>
+What we'll do now is add a breadcrumbs trail, navigation links, and a site
+map to the site. You can inspect 
+<a href="<exalink "with-embellishments/H-W-NM-embellish.pl" />">the new 
+code</a> to see if you understand it and 
+<a href="<exalink "with-embellishments/dest/" />">view the final site</a>.
+</p>
+
+<p>
+As can be noticed a breadcrumbs trail was added right at the top. Below it
+is a toolbar with navigation links like "next", "previous" or "up". Finally, 
+<a href="<exalink "with-embellishments/dest/site-map/" />">a site map</a>
+was added. Now let's go over the 
+<a href="<exalink "complex-2-embellish-delta.diff" />" 
+title="the difference from the previous version in patch format" 
+rel="patch">code's modifications</a>:
+</p>
+
+<ol>
+<li>
+We now load the CGI.pm module, because it is needed for the
+<tt>CGI::escapeHTML()</tt> function.
+</li>
+<li>
+Several styles were added to the CSS stylesheet. They are meant
+to make the modified page look nicer.
+</li>
+<li>
+A <tt>render_breadcrumbs_trail_component()</tt> function was added. It is
+used to transform a breadcrumbs trail object as returned by 
+HTML-Widgets-NavMenu into HTML. It should be pretty self-explanatory.
+</li>
+<li>
+A entry with a link to the site map page was added to the bottom of the 
+navigation menu tree.
+</li>
+<li>
+A code to add the site map page with its contents to the <tt>@pages</tt> 
+array was added. As can be seen, it initializes an 
+<tt>HTML::Widgets::NavMenu</tt> with the appropriate URL, and then uses
+its <tt>gen_site_map()</tt> function.
+</li>
+<li>
+Some code was added to the page loop to generate the navigation links. The
+navigation links are returned as an hash reference with the keys being the
+relevance of the link, and the value being the URL. There is a loop there
+that for each link renders it into both the HTML <tt>&lt;head&gt;</tt> tag
+<tt>&lt;link&gt;</tt> elements, and the toolbar that will be presented on
+the page.
+</li>
+<li>
+The text of the breadcrumbs trail is generated using a join of their
+HTML representations.
+</li>
+<li>
+The generated HTML template was modified to include the new elements of
+the page.
+</li>
+</ol>
 </body>
 </html>
 
