@@ -15,7 +15,7 @@ a:hover { background-color : palegreen; }
     padding-bottom : 1em;
     padding-top : 0em;
     margin-left : 1em;
-    background-color : white
+    background-color : white;
     
 }
 .navbar {
@@ -45,21 +45,54 @@ a:hover { background-color : palegreen; }
   border-width: thin;
   border-color:  black;
 }
+.breadcrumb
+{
+    background-color: #4190e1;
+    padding-bottom: 0.3em;
+    padding-left: 0.5em;
+    padding-top: 0.3em;
+    margin-bottom: 0.2em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #FF8080;
+    font-size: 80%;
+}
+
+.breadcrumb a:link
+{
+   color: #FFFF00 ;
+}
+
+.breadcrumb a:link:hover
+{
+   color: red;
+}
+
+.breadcrumb a:active
+{
+   color: green;
+}
+
+.breadcrumb a:visited
+{
+    color: #F5F5DC;    
+}
+
+.breadcrumb a:visited:hover
+{
+    color: #800000;    
+}
 EOF
 
-sub create_file_dirs
+sub render_breadcrumbs_trail_component
 {
-    my $path = shift;
-    my ($dir, @components);
-    @components = split(/\//, $path);
-    # Remove the filename.
-    pop(@components);
-    for(my $i=0;$i<@components;$i++)
-    {
-        my $dir_path = join("/", @components[0..$i]);
-        mkdir($dir_path) unless (-e $dir_path);
-    }
-}
+    my $component = shift;
+    my $title = $component->title();
+    my $title_attr = defined($title) ? " title=\"$title\"" : "";
+    return "<a href=\"" . CGI::escapeHTML($component->direct_url()) .
+        "\"$title_attr>" .
+        $component->label() . "</a>";
+};
 
 my $nav_menu_tree =
 {
@@ -348,7 +381,14 @@ foreach my $page (@pages)
         $nav_links_text .= "<link rel=\"$key\" href=\"" . CGI::escapeHTML($url) . "\" />\n";
         $nav_links_bar_text .= "<a href=\"" . CGI::escapeHTML($url) . "\">$key</a>\n";
     }
-    
+
+    my $breadcrumbs_trail_string =
+        join(" &rarr; ",
+            (map
+                { render_breadcrumbs_trail_component($_) }
+                @{$nav_menu_results->{leading_path}}
+            )
+        );
     
     my $file_path = $path;
     if (($file_path =~ m{/$}) || ($file_path eq ""))
@@ -374,6 +414,9 @@ $css_style
 $nav_links_text
 </head>
 <body>
+<div class="breadcrumb">
+$breadcrumbs_trail_string
+</div>
 <div class="navlinks">
 $nav_links_bar_text
 </div>
