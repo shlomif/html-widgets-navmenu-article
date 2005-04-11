@@ -58,27 +58,22 @@ a:hover { background-color : palegreen; }
     font-size: 80%;
 }
 
-.breadcrumb a:link
+.breadcrumb :link
 {
    color: #FFFF00 ;
 }
 
-.breadcrumb a:link:hover
+.breadcrumb :link:hover
 {
    color: red;
 }
 
-.breadcrumb a:active
-{
-   color: green;
-}
-
-.breadcrumb a:visited
+.breadcrumb :visited
 {
     color: #F5F5DC;    
 }
 
-.breadcrumb a:visited:hover
+.breadcrumb :visited:hover
 {
     color: #800000;    
 }
