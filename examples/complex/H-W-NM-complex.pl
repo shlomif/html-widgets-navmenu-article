@@ -35,20 +35,6 @@ a:hover { background-color : palegreen; }
 }
 EOF
 
-sub create_file_dirs
-{
-    my $path = shift;
-    my ($dir, @components);
-    @components = split(/\//, $path);
-    # Remove the filename.
-    pop(@components);
-    for(my $i=0;$i<@components;$i++)
-    {
-        my $dir_path = join("/", @components[0..$i]);
-        mkdir($dir_path) unless (-e $dir_path);
-    }
-}
-
 my $nav_menu_tree =
 {
     'host' => "default",
