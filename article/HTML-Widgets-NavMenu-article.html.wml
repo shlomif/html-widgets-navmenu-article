@@ -45,7 +45,8 @@ web-site.
 The web is not short of examples for navigation menus. A simple navigation menu made out of images can be found on <a href="http://www.paulgraham.com/">Paul 
 Graham's homepage</a>. One can see that it doesn't change as the site visitor
 move to different pages of the site. A more sophisticated one can be found
-on <a href="http://www.kde.org/">the homepage of the KDE desktop environment.</a>. There we see that if we press on 
+on <a href="http://www.kde.org/">the homepage of the KDE 
+desktop environment</a>. There we see that if we press on 
 <a href="http://www.kde.org/screenshots/">the link to the screenshots</a> we
 get a sub-menu with the different KDE versions with which the screenshots were
 taken. Similar expansions and un-expansions of the menu are present for some 
