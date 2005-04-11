@@ -5,6 +5,7 @@ use warnings;
 
 use HTML::Widgets::NavMenu;
 use File::Path;
+use CGI;
 
 my $css_style = <<"EOF";
 a:hover { background-color : palegreen; }
@@ -32,6 +33,17 @@ a:hover { background-color : palegreen; }
     font-size : small;
     margin-left : 0.3em;
     padding-left : 1em;
+}
+.navlinks
+{
+   background-color:
+#30C020;
+  margin-bottom : 0.2em;
+  padding-left: 0.5em;
+  padding-bottom: 0.2em;
+  border-style: solid;
+  border-width: thin;
+  border-color:  black;
 }
 EOF
 
@@ -324,6 +336,19 @@ foreach my $page (@pages)
     my $nav_menu_results = $nav_menu->render();
 
     my $nav_menu_text = join("\n", @{$nav_menu_results->{'html'}});
+
+    my $nav_links_text = "";
+    my $nav_links_bar_text = "";
+    my $nav_links = $nav_menu_results->{'nav_links'};
+
+    my @keys = (sort { $a cmp $b } keys(%$nav_links));
+    foreach my $key (@keys)
+    {
+        my $url = $nav_links->{$key};
+        $nav_links_text .= "<link rel=\"$key\" href=\"" . CGI::escapeHTML($url) . "\" />\n";
+        $nav_links_bar_text .= "<a href=\"" . CGI::escapeHTML($url) . "\">$key</a>\n";
+    }
+    
     
     my $file_path = $path;
     if (($file_path =~ m{/$}) || ($file_path eq ""))
@@ -346,8 +371,12 @@ foreach my $page (@pages)
 <style type="text/css">
 $css_style
 </style>
+$nav_links_text
 </head>
 <body>
+<div class="navlinks">
+$nav_links_bar_text
+</div>
 <div class="navbar">
 $nav_menu_text
 </div>
