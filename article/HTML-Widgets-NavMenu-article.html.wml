@@ -502,6 +502,16 @@ preceding page</a> will reach it.
 </li>
 </ol>
 
+<h2>Conclusion</h2>
+
+<p>
+This article demonstrated how HTML::Widgets::NavMenu can be used to 
+maintain navigation menus and organzie site flow. Reading its documentation
+may reveal other useful features of it. So, you no longer have an excuse for
+not having such niceties as were demonstrated here on your site. Happy 
+hacking!
+</p>
+
 <h2>Acknowledgements</h2>
 
 <p>
