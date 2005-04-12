@@ -138,6 +138,7 @@ my $nav_menu_tree =
             'text' => "Humour", 
             'url' => "humour/",
             'title' => "My Humorous Creations",
+            'show_always' => 1,
             'subs' => 
             [
                 {
