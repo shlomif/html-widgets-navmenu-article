@@ -460,6 +460,33 @@ the page.
 </li>
 </ol>
 
+<h2>Fine-Grained Site Flow</h2>
+
+<p>
+In 
+<a href="<exalink "fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl" />">this
+example</a> we'll modify the web-site to have a more sophisticated site flow.
+<a href="<exalink "embellish-2-fine-grained-delta.diff" />" rel="patch">Looking
+at the changes</a> one can see that several new keys were added to the
+tree's items. Let's see what implications they had on the site.
+</p>
+
+<ol>
+<li>
+Both English Resum&eacute;'s were marked with <tt>'skip' =&gt; 1,</tt>. This
+caused these pages to 
+<a href="<exalink "fine-grained-site-flow/dest/me/resumes/" />">appear in the 
+navigation menu</a>, but not to be part of the traversal flow. So if we click
+"next" at that page, it will skip them both. Also if we press "prev" at
+<a href="<exalink "fine-grained-site-flow/dest/humour/" />">the page that
+follows them</a> we will get to the page that precedes them.
+</li>
+<li>
+
+</li>
+</ol>
+
+
 <h2>Thanks</h2>
 
 <p>
