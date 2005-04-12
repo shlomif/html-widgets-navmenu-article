@@ -194,7 +194,7 @@ my $nav_menu_tree =
         {
             'text' => "Software",
             'url' => "open-source/",
-            'expand' => { 're' => "^open-source/", },
+            'expand' => { 're' => "^(open-source|perl)/", },
             'title' => "Pages related to Software (mostly Open-Source)",
             'subs' => 
             [
@@ -241,11 +241,13 @@ my $nav_menu_tree =
                     'text' => "Portability Libraries",
                     'title' => "Cross-Platform Abstraction Libraries",
                     'url' => "abstraction/",
+                    'hide' => 1,
                 },
                 {
                     'text' => "Software Tools",
-                    'title' => "Software Constructions and Management Tools",
+                    'title' => "Software Construction and Management Tools",
                     'url' => "software-tools/",
+                    'hide' => 1,
                 },
             ],
         },
@@ -371,6 +373,21 @@ my @pages =
         'content' => join("\n", @{$site_map_generator->gen_site_map()}),
     };
 };
+
+push @pages,
+(
+    {
+        'path' => "perl/japhs/",
+        'title' => "Perl JAPHs",
+        'content' => "<p>JAPHs for fun and profit.</p>",
+    },
+    {
+        'path' => "open-source/yowza/",
+        'title' => "A Wonderful Yowza",
+        'content' => "<p>Yowza is da-bomb man!</p>",
+    }
+    
+);
 
 foreach my $page (@pages)
 {

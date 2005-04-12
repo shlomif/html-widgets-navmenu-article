@@ -123,12 +123,10 @@ my $nav_menu_tree =
                         {
                             'text' => "English Resum&eacute;",
                             'url' => "resume.html",
-                            'skip' => 1,
                         },
                         {
                             'text' => "Detailed English Resum&eacute;",
                             'url' => "resume_detailed.html",
-                            'skip' => 1,
                         },
                     ],
                 },
@@ -193,7 +191,6 @@ my $nav_menu_tree =
         {
             'text' => "Software",
             'url' => "open-source/",
-            'expand' => { 're' => "^open-source/", },
             'title' => "Pages related to Software (mostly Open-Source)",
             'subs' => 
             [
@@ -243,7 +240,7 @@ my $nav_menu_tree =
                 },
                 {
                     'text' => "Software Tools",
-                    'title' => "Software Constructions and Management Tools",
+                    'title' => "Software Construction and Management Tools",
                     'url' => "software-tools/",
                 },
             ],
@@ -251,7 +248,6 @@ my $nav_menu_tree =
         {
             'text' => "Lectures", 
             'url' => "lecture/",
-            'expand' => { 're' => "^lecture/", },
             'title' => "Presentations I Wrote (Mostly Technical)",
             'subs' => 
             [
