@@ -402,9 +402,9 @@ Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 
 <p>
 What we'll do now is add a breadcrumbs trail, navigation links, and a site
-map to the site. You can inspect 
+map to the site. You can inspect
 <a href="<exalink "with-embellishments/H-W-NM-embellish.pl" />">the new 
-code</a> to see if you understand it and 
+code</a> to see if you understand it and
 <a href="<exalink "with-embellishments/dest/" />">view the final site</a>.
 </p>
 
@@ -465,7 +465,9 @@ the page.
 <p>
 In 
 <a href="<exalink "fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl" />">this
-example</a> we'll modify the web-site to have a more sophisticated site flow.
+example</a> we'll modify 
+<a href="<exalink "fine-grained-site-flow/dest/" />">the new web-site</a> to 
+have a more sophisticated site flow.
 <a href="<exalink "embellish-2-fine-grained-delta.diff" />" rel="patch">Looking
 at the changes</a> one can see that several new keys were added to the
 tree's items. Let's see what implications they had on the site.
@@ -473,7 +475,7 @@ tree's items. Let's see what implications they had on the site.
 
 <ol>
 <li>
-Both English Resum&eacute;'s were marked with <tt>'skip' =&gt; 1,</tt>. This
+Both English Resum&eacute;s were marked with <tt>'skip' =&gt; 1,</tt>. This
 caused these pages to 
 <a href="<exalink "fine-grained-site-flow/dest/me/resumes/" />">appear in the 
 navigation menu</a>, but not to be part of the traversal flow. So if we click
