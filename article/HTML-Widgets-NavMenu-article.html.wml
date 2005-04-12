@@ -487,7 +487,7 @@ it to expand on all pages of the site.
 </li>
 <li>
 <tt>'expand'</tt> was set to a regular expression for the Software section. As
-a result accesing 
+a result accessing 
 <a href="<exalink "fine-grained-site-flow/dest/perl/japhs/" />">a page that
 isn't specified in the navigation menu</a>, but matches that regular expression,
 causes the Software section to expand there.
@@ -506,13 +506,13 @@ preceding page</a> will reach it.
 
 <p>
 This article demonstrated how HTML::Widgets::NavMenu can be used to 
-maintain navigation menus and organzie site flow. Reading its documentation
+maintain navigation menus and organize site flow. Reading its documentation
 may reveal other useful features of it. So, you no longer have an excuse for
 not having such niceties as were demonstrated here on your site. Happy 
 hacking!
 </p>
 
-<h2>Acknowledgements</h2>
+<h2>Acknowledgments</h2>
 
 <p>
 Thanks to Diego Iastrubni for giving some useful commentary on early drafts
