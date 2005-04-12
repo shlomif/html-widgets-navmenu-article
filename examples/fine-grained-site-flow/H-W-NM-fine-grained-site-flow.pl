@@ -386,7 +386,6 @@ push @pages,
         'title' => "A Wonderful Yowza",
         'content' => "<p>Yowza is da-bomb man!</p>",
     }
-    
 );
 
 foreach my $page (@pages)
