@@ -114,7 +114,8 @@ appear in the navigation menu, but are not part of the site flow.
 <p>
 So how can we do all of this? 
 <a href="http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/">HTML::Widgets::NavMenu</a> 
-is a CPAN module for maintaining navigation menus and site flow
+is a <a href="http://www.cpan.org/">CPAN</a> module for maintaining 
+navigation menus and site flow
 in general. It supports all of the mentioned patterns and some others, has a
 comprehensive test suite, and still actively maintained. I have successfully
 used this module to maintain the site flow logic for such sites as
@@ -125,7 +126,15 @@ it was used by a different person for his own site.
 
 <p>
 Using this module, one can easily generate and maintain such navigation menus
-in Perl. The rest of the article will show you how to do it.
+in Perl. The rest of the article will show you how to do it. The module is 
+generic enough so that it can be used to generate static HTML, or within
+server-side scripts (CGI, mod_perl, etc.) to generate HTML on the fly.
+</p>
+
+<p>
+To install it use a CPAN front-end by issuing a command like 
+<tt>perl -MCPANPLUS -e "install HTML::Widgets::NavMenu"</tt> or
+<tt>perl -MCPAN -e "install HTML::Widgets::NavMenu"</tt>.
 </p>
 
 <h2>A Simple Example</h2>
