@@ -508,7 +508,7 @@ preceding page</a> will reach it.
 Until now we have demonstrated generating a set of static HTML pages. Now,
 we'll convert the code to run dynamically on the server. We'll use 
 <a href="http://search.cpan.org/dist/CGI.pm/">the CGI.pm</a> module which
-is very ubiqitous and is bundled with Perl.
+is very ubiquitous and is bundled with Perl.
 </p>
 
 <p>
