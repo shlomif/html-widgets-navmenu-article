@@ -388,11 +388,21 @@ push @pages,
     }
 );
 
+my $cgi = CGI->new();
+my $path_info = $cgi->path_info();
+
+my $found = 0;
+PAGE_LOOP:
 foreach my $page (@pages)
 {
     my $path = $page->{'path'};
     my $title = $page->{'title'};
     my $content = $page->{'content'};
+    if ($path_info ne "/$path")
+    {
+        next PAGE_LOOP;
+    }
+    $found = 1;
     my $nav_menu = 
         HTML::Widgets::NavMenu->new(
             path_info => "/$path",
@@ -433,9 +443,9 @@ foreach my $page (@pages)
     my $full_path = "dest/$file_path";
     $full_path =~ m{^(.*)/[^/]+$};
     mkpath($1, 0, 0755);
-    open my $out, ">", $full_path;
     
-    print {$out} <<"EOF";
+    print $cgi->header();
+    print <<"EOF";
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -465,7 +475,11 @@ $content
 </body>
 </html>
 EOF
+}
 
-    close($out);
+if (!$found)
+{
+    print $cgi->header();
+    print "<html><body>Page not found!</body></html>\n";
 }
 
