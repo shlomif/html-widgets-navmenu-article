@@ -391,9 +391,9 @@ foreach my $page (@pages)
     my @keys = (sort { $a cmp $b } keys(%$nav_links));
     foreach my $key (@keys)
     {
-        my $url = $nav_links->{$key};
-        $nav_links_text .= "<link rel=\"$key\" href=\"" . CGI::escapeHTML($url) . "\" />\n";
-        $nav_links_bar_text .= "<a href=\"" . CGI::escapeHTML($url) . "\">$key</a>\n";
+        my $url = CGI::escapeHTML($nav_links->{$key});
+        $nav_links_text .= "<link rel=\"$key\" href=\"$url\" />\n";
+        $nav_links_bar_text .= "<a href=\"$url\">$key</a>\n";
     }
 
     my $breadcrumbs_trail_string =
