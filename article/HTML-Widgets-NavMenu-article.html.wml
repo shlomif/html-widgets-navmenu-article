@@ -502,6 +502,37 @@ preceding page</a> will reach it.
 </li>
 </ol>
 
+<h2>A CGI Script</h2>
+
+<p>
+Until now we have demonstrated generating a set of static HTML pages. Now,
+we'll convert the code to run dynamically on the server. We'll use 
+<a href="http://search.cpan.org/dist/CGI.pm/">the CGI.pm</a> module which
+is very ubiqitous and is bundled with Perl.
+</p>
+
+<p>
+Converting to <a href="<exalink "cgi-script/H-W-NM-serve.pl" />">the CGI 
+script</a> did not require too many 
+<a href="<exalink "fine-grained-2-cgi.diff" />" 
+rel="patch">changes</a>. What happens is that inside the page loop, we just
+check if the page matches the CGI path info (I.e: the path appended after 
+the CGI script name), and if it does we call the <tt>render_page()</tt> 
+function.
+</p>
+
+<p>
+<tt>render_page()</tt> is similar to the rest of the loop except that it prints
+the output to STDOUT, prefixed by the CGI header. Finally, after the loop ends
+we check if a page was found and if not, display an error page.
+</p>
+
+<p>
+Note that looking for the suitable page in this script is done in a sub-optimal
+manner. In a better-engineered script, the page paths should be kept in a 
+persistent hash, from will the path info will be looked up.
+</p>
+
 <h2>Conclusion</h2>
 
 <p>
@@ -515,8 +546,8 @@ hacking!
 <h2>Acknowledgments</h2>
 
 <p>
-Thanks to Diego Iastrubni for giving some useful commentary on early drafts
-of this document.
+Thanks to Diego Iastrubni and Aankhen for giving some useful commentary on 
+early drafts of this document.
 </p>
 
 </body>
