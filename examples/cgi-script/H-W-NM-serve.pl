@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use HTML::Widgets::NavMenu;
-use File::Path;
 use CGI;
 
 my $css_style = <<"EOF";
@@ -398,11 +397,17 @@ foreach my $page (@pages)
     my $path = $page->{'path'};
     my $title = $page->{'title'};
     my $content = $page->{'content'};
-    if ($path_info ne "/$path")
+    if ($path_info eq "/$path")
     {
-        next PAGE_LOOP;
-    }
-    $found = 1;
+        $found = 1;
+        render_page($path, $title, $content);
+        last;
+    }    
+}
+
+sub render_page
+{
+    my ($path, $title, $content) = @_;
     my $nav_menu = 
         HTML::Widgets::NavMenu->new(
             path_info => "/$path",
@@ -434,15 +439,6 @@ foreach my $page (@pages)
                 @{$nav_menu_results->{leading_path}}
             )
         );
-    
-    my $file_path = $path;
-    if (($file_path =~ m{/$}) || ($file_path eq ""))
-    {
-        $file_path .= "index.html";
-    }
-    my $full_path = "dest/$file_path";
-    $full_path =~ m{^(.*)/[^/]+$};
-    mkpath($1, 0, 0755);
     
     print $cgi->header();
     print <<"EOF";

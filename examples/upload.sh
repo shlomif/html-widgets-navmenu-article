@@ -11,7 +11,11 @@ diff -u complex/H-W-NM-complex.pl with-embellishments/H-W-NM-embellish.pl > \
 diff -u with-embellishments/H-W-NM-embellish.pl \
     fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl \
     > embellish-2-fine-grained-delta.diff
+diff -u fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl \
+    cgi-script/H-W-NM-serve.pl \
+    > fine-grained-2-cgi.diff
 
 rsync -r -v --progress . shlomif@shell.berlios.de:/home/groups/web-cpan/htdocs/modules/HTML-Widgets-NavMenu/article/examples/
+
 
 
