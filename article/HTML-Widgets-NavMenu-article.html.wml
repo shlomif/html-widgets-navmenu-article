@@ -482,12 +482,27 @@ navigation menu</a>, but not to be part of the traversal flow. So if we click
 follows them</a> we will get to the page that precedes them.
 </li>
 <li>
-
+The <tt>'show_always'</tt> attribute was set for the Humour section, causing
+it to expand on all pages of the site.
+</li>
+<li>
+<tt>'expand'</tt> was set to a regular expression for the Software section. As
+a result accesing 
+<a href="<exalink "fine-grained-site-flow/dest/perl/japhs/" />">a page that
+isn't specified in the navigation menu</a>, but matches that regular expression,
+causes the Software section to expand there.
+</li>
+<li>
+<a href="<exalink "fine-grained-site-flow/dest/software-tools" />">The software
+tools page</a> was marked as <tt>'hide' =&gt; 1</tt>. What happened is that
+it was removed from the navigation menu, but is still traversed in the site 
+flow. So for example, clicking on "next" in 
+<a href="<exalink "fine-grained-site-flow/dest/open-source/bits.html" />">the
+preceding page</a> will reach it.
 </li>
 </ol>
 
-
-<h2>Thanks</h2>
+<h2>Acknowledgements</h2>
 
 <p>
 Thanks to Diego Iastrubni for giving some useful commentary on early drafts
