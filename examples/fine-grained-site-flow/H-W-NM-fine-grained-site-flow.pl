@@ -336,7 +336,7 @@ my %hosts =
     },
 );
 
-my @page_pathes =
+my @page_paths =
 ("", "me/", "personal.html", "me/contact-me/", "me/resumes/", "resume.html", 
 "resume_detailed.html", "humour/", "humour/TheEnemy/", "humour/TOWTF/", 
 "humour/Pope/", "humour.html", "humour/fortunes/", "MathVentures/", 
@@ -354,7 +354,7 @@ my @pages =
     (map { 
         +{ 'path' => $_, 'title' => "Title for $_", 
         'content' => "<p>Content for $_</p>" }
-    } @page_pathes);
+    } @page_paths);
 
 # Add the site-map page.
 {
