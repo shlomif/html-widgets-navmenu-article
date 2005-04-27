@@ -370,8 +370,6 @@ foreach my $page (@pages)
 
     my $nav_menu_results = $nav_menu->render();
 
-    my $nav_links = $nav_menu_results->{'nav_links'};
-
     my $file_path = $path;
     if (($file_path =~ m{/$}) || ($file_path eq ""))
     {
@@ -400,18 +398,7 @@ foreach my $page (@pages)
         'nav_menu_text' => join("\n", @{$nav_menu_results->{'html'}}) . "\n",
         'content' => $page->{'content'} . "\n",
         'breadcrumbs' => $nav_menu_results->{leading_path},
-        'nav_links' =>
-        [
-            map
-            {
-                {
-                    'key' => $_,
-                    'url' => $nav_links->{$_},
-                }
-            }
-            sort { $a cmp $b }
-            (keys(%$nav_links))
-        ],
+        'nav_links' => $nav_menu_results->{'nav_links'},
     };
 
     my $nav_links_template = <<'EOF';
@@ -426,8 +413,8 @@ foreach my $page (@pages)
 <style type="text/css">
 [% css_style %]
 </style>
-[% FOREACH l = nav_links %]
-<link rel="[% l.key %]" href="[% HTML.escape(l.url) %]" />
+[% FOREACH key = nav_links.keys.sort %]
+<link rel="[% key %]" href="[% HTML.escape(nav_links.$key) %]" />
 [% END %]
 </head>
 <body>
@@ -441,8 +428,8 @@ foreach my $page (@pages)
 
 </div>
 <div class="navlinks">
-[% FOREACH l = nav_links %]
-<a href="[% HTML.escape(l.url) %]">[% l.key %]</a>
+[% FOREACH key = nav_links.keys.sort %]
+<a href="[% HTML.escape(nav_links.$key) %]">[% key %]</a>
 [% END %]
 </div>
 <div class="navbar">
