@@ -404,7 +404,6 @@ foreach my $page (@pages)
     open my $out, ">", $full_path or
         die "Could not open \"$full_path\" for writing!";
 
-
     my $template =
         Template->new(
         {
