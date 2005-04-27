@@ -5,7 +5,7 @@ use warnings;
 
 use HTML::Widgets::NavMenu;
 use File::Path;
-use CGI;
+use Template;
 
 my $css_style = <<"EOF";
 a:hover { background-color : palegreen; }
@@ -78,16 +78,6 @@ a:hover { background-color : palegreen; }
     color: #800000;    
 }
 EOF
-
-sub render_breadcrumbs_trail_component
-{
-    my $component = shift;
-    my $title = $component->title();
-    my $title_attr = defined($title) ? " title=\"$title\"" : "";
-    return "<a href=\"" . CGI::escapeHTML($component->direct_url()) .
-        "\"$title_attr>" .
-        $component->label() . "</a>";
-};
 
 my $nav_menu_tree =
 {
@@ -370,8 +360,6 @@ my @pages =
 foreach my $page (@pages)
 {
     my $path = $page->{'path'};
-    my $title = $page->{'title'};
-    my $content = $page->{'content'};
     my $nav_menu = 
         HTML::Widgets::NavMenu->new(
             path_info => "/$path",
@@ -382,28 +370,8 @@ foreach my $page (@pages)
 
     my $nav_menu_results = $nav_menu->render();
 
-    my $nav_menu_text = join("\n", @{$nav_menu_results->{'html'}});
-
-    my $nav_links_text = "";
-    my $nav_links_bar_text = "";
     my $nav_links = $nav_menu_results->{'nav_links'};
 
-    my @keys = (sort { $a cmp $b } keys(%$nav_links));
-    foreach my $key (@keys)
-    {
-        my $url = CGI::escapeHTML($nav_links->{$key});
-        $nav_links_text .= "<link rel=\"$key\" href=\"$url\" />\n";
-        $nav_links_bar_text .= "<a href=\"$url\">$key</a>\n";
-    }
-
-    my $breadcrumbs_trail_string =
-        join(" &rarr; ",
-            (map
-                { render_breadcrumbs_trail_component($_) }
-                @{$nav_menu_results->{leading_path}}
-            )
-        );
-    
     my $file_path = $path;
     if (($file_path =~ m{/$}) || ($file_path eq ""))
     {
@@ -416,37 +384,79 @@ foreach my $page (@pages)
     mkpath($1, 0, 0755);
     open my $out, ">", $full_path or
         die "Could not open \"$full_path\" for writing!";
-    
-    print {$out} <<"EOF";
+
+
+    my $template =
+        Template->new(
+        {
+            'POST_CHOMP' => 1,
+        }
+        );
+
+    my $vars =
+    {
+        'title' => $page->{'title'},
+        'css_style' => $css_style,
+        'nav_menu_text' => join("\n", @{$nav_menu_results->{'html'}}) . "\n",
+        'content' => $page->{'content'} . "\n",
+        'breadcrumbs' => $nav_menu_results->{leading_path},
+        'nav_links' =>
+        [
+            map
+            {
+                {
+                    'key' => $_,
+                    'url' => $nav_links->{$_},
+                }
+            }
+            sort { $a cmp $b }
+            (keys(%$nav_links))
+        ],
+    };
+
+    my $nav_links_template = <<'EOF';
+[% USE HTML %]
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
 <html>
 <head>
-<title>$title</title>
+<title>[% title %]</title>
 <style type="text/css">
-$css_style
+[% css_style %]
 </style>
-$nav_links_text
+[% FOREACH l = nav_links %]
+<link rel="[% l.key %]" href="[% HTML.escape(l.url) %]" />
+[% END %]
 </head>
 <body>
 <div class="breadcrumb">
-$breadcrumbs_trail_string
+[% FOREACH c = breadcrumbs %]
+[% UNLESS loop.first %] &rarr; [% END %]
+<a href="[% HTML.escape(c.direct_url) %]"
+[% IF c.title %] title="[% c.title %]"[% END %]
+>[% c.label %]</a>
+[% END %]
+
 </div>
 <div class="navlinks">
-$nav_links_bar_text
+[% FOREACH l = nav_links %]
+<a href="[% HTML.escape(l.url) %]">[% l.key %]</a>
+[% END %]
 </div>
 <div class="navbar">
-$nav_menu_text
+[% nav_menu_text %]
 </div>
 <div class="body">
-<h1>$title</h1>
-$content
+<h1>[% title %]</h1>
+[% content %]
 </div>
 </body>
 </html>
 EOF
+
+    $template->process(\$nav_links_template, $vars, $out);
 
     close($out);
 }
