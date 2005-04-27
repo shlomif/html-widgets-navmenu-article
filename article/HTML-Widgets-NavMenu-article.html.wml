@@ -431,17 +431,18 @@ rel="patch">code's modifications</a>:
 
 <ol>
 <li>
-We now load the CGI.pm module, because it is needed for the
-<tt>CGI::escapeHTML()</tt> function.
+We now make use of <a href="http://www.template-toolkit.org/">the Template 
+Toolkit</a> to render the page. So we load the <tt>Template</tt> module, and
+then proceed to fill in the variables of the template, to define the
+template itself and to process it into the output file.
 </li>
 <li>
 Several styles were added to the CSS stylesheet. They are meant
 to make the modified page look nicer.
 </li>
 <li>
-A <tt>render_breadcrumbs_trail_component()</tt> function was added. It is
-used to transform a breadcrumbs trail object as returned by 
-HTML-Widgets-NavMenu into HTML. It should be pretty self-explanatory.
+A template portion to transform a breadcrumbs trail object as returned by 
+HTML-Widgets-NavMenu into HTML. It should not be hard to understand.
 </li>
 <li>
 A entry with a link to the site map page was added to the bottom of the 
@@ -454,16 +455,12 @@ array was added. As can be seen, it initializes an
 its <tt>gen_site_map()</tt> function.
 </li>
 <li>
-Some code was added to the page loop to generate the navigation links. The
+Some code was added to generate the navigation links. The
 navigation links are returned as an hash reference with the keys being the
 relevance of the link, and the value being the URL. There is a loop there
 that for each link renders it into both the HTML <tt>&lt;head&gt;</tt> tag
 <tt>&lt;link&gt;</tt> elements, and the toolbar that will be presented on
 the page.
-</li>
-<li>
-The text of the breadcrumbs trail is generated using a join of their
-HTML representations.
 </li>
 <li>
 The generated HTML template was modified to include the new elements of
@@ -559,8 +556,8 @@ hacking!
 <h2>Acknowledgments</h2>
 
 <p>
-Thanks to Diego Iastrubni and Aankhen for giving some useful commentary on 
-early drafts of this document.
+Thanks to Diego Iastrubni and Aankhen and chromatic (my editor) for giving 
+some useful commentary on early drafts of this document.
 </p>
 
 </body>
