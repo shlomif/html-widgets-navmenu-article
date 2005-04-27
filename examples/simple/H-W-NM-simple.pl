@@ -139,14 +139,17 @@ foreach my $page (@pages)
     }
     my $full_path = "dest/$file_path";
     $full_path =~ m{^(.*)/[^/]+$};
+    # mkpath() throws an exception if it isn't successful, which will cause 
+    # this program to terminate. This is what we want.
     mkpath($1, 0, 0755);
-    open my $out, ">", $full_path;
+    open my $out, ">", $full_path or
+        die "Could not open \"$full_path\" for writing!";
     
     print {$out} <<"EOF";
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
 <title>$title</title>
