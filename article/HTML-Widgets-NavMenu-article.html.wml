@@ -2,6 +2,14 @@
 http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/article/examples/%0
 </define-tag>
 
+<define-tag source_link whitespace="delete">
+<exalink "%0.html" />
+</define-tag>
+
+<define-tag diff_link whitespace="delete">
+<source_link "%0" />
+</define-tag>
+
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -146,7 +154,7 @@ and two other pages.
 
 <p>
 You can see 
-<a href="<exalink "simple/H-W-NM-simple.pl" />">the 
+<a href="<source_link "simple/H-W-NM-simple.pl" />">the 
 complete code for this example</a>, and please go over it and use it as a 
 reference. We will go over it now, to explain it.
 </p>
@@ -387,7 +395,7 @@ entry is turned into bold, and its link canceled.
 <h2>A More Complex Example</h2>
 
 <p>
-Now let's look at <a href="<exalink "complex/H-W-NM-complex.pl" />">a more 
+Now let's look at <a href="<source_link "complex/H-W-NM-complex.pl" />">a more 
 complex example</a>. This time the tree is considerably larger and is also
 nested. There are now <tt>'subs'</tt> of other pages.
 </p>
@@ -403,7 +411,7 @@ Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 <p>
 What we'll do now is add a breadcrumbs trail, navigation links, and a site
 map to the site. You can inspect
-<a href="<exalink "with-embellishments/H-W-NM-embellish.pl" />">the new 
+<a href="<source_link "with-embellishments/H-W-NM-embellish.pl" />">the new 
 code</a> to see if you understand it and
 <a href="<exalink "with-embellishments/dest/" />">view the final site</a>.
 </p>
@@ -413,7 +421,7 @@ As can be noticed a breadcrumbs trail was added right at the top. Below it
 is a toolbar with navigation links like "next", "previous" or "up". Finally, 
 <a href="<exalink "with-embellishments/dest/site-map/" />">a site map</a>
 was added. Now let's go over the 
-<a href="<exalink "complex-2-embellish-delta.diff" />" 
+<a href="<diff_link "complex-2-embellish-delta.diff" />" 
 title="the difference from the previous version in patch format" 
 rel="patch">code's modifications</a>:
 </p>
@@ -464,11 +472,11 @@ the page.
 
 <p>
 In 
-<a href="<exalink "fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl" />">this
+<a href="<source_link "fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl" />">this
 example</a> we'll modify 
 <a href="<exalink "fine-grained-site-flow/dest/" />">the new web-site</a> to 
 have a more sophisticated site flow.
-<a href="<exalink "embellish-2-fine-grained-delta.diff" />" rel="patch">Looking
+<a href="<diff_link "embellish-2-fine-grained-delta.diff" />" rel="patch">Looking
 at the changes</a> one can see that several new keys were added to the
 tree's items. Let's see what implications they had on the site.
 </p>
@@ -514,9 +522,9 @@ is very ubiquitous and is bundled with Perl.
 </p>
 
 <p>
-Converting to <a href="<exalink "cgi-script/H-W-NM-serve.pl" />">the CGI 
+Converting to <a href="<source_link "cgi-script/H-W-NM-serve.pl" />">the CGI 
 script</a> did not require too many 
-<a href="<exalink "fine-grained-2-cgi.diff" />" 
+<a href="<diff_link "fine-grained-2-cgi.diff" />" 
 rel="patch">changes</a>. What happens is that inside the page loop, we just
 check if the page matches the CGI path info (I.e: the path appended after 
 the CGI script name), and if it does we call the <tt>render_page()</tt> 
