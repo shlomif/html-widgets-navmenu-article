@@ -457,10 +457,11 @@ its <tt>gen_site_map()</tt> function.
 <li>
 Some code was added to generate the navigation links. The
 navigation links are returned as an hash reference with the keys being the
-relevance of the link, and the value being the URL. There is a loop there
-that for each link renders it into both the HTML <tt>&lt;head&gt;</tt> tag
-<tt>&lt;link&gt;</tt> elements, and the toolbar that will be presented on
-the page.
+relevance of the link, and the value being an object supplying information
+about the link (like <tt>direct_url()</tt> or <tt>title()</tt>). There are
+two loops there that for each link renders it into either the HTML 
+<tt>&lt;head&gt;</tt> tag <tt>&lt;link&gt;</tt> elements, or the toolbar that 
+will be presented on the page.
 </li>
 <li>
 The generated HTML template was modified to include the new elements of
