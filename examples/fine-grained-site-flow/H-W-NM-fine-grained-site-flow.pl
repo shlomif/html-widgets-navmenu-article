@@ -418,7 +418,7 @@ foreach my $page (@pages)
         'nav_menu_text' => join("\n", @{$nav_menu_results->{'html'}}) . "\n",
         'content' => $page->{'content'} . "\n",
         'breadcrumbs' => $nav_menu_results->{leading_path},
-        'nav_links' => $nav_menu_results->{'nav_links'},
+        'nav_links' => $nav_menu_results->{'nav_links_obj'},
     };
 
     my $nav_links_template = <<'EOF';
@@ -434,7 +434,9 @@ foreach my $page (@pages)
 [% css_style %]
 </style>
 [% FOREACH key = nav_links.keys.sort %]
-<link rel="[% key %]" href="[% HTML.escape(nav_links.$key) %]" />
+<link rel="[% key %]" 
+href="[% HTML.escape(nav_links.$key.direct_url()) %]" 
+title="[% nav_links.$key.title() %]" />
 [% END %]
 </head>
 <body>
@@ -449,7 +451,8 @@ foreach my $page (@pages)
 </div>
 <div class="navlinks">
 [% FOREACH key = nav_links.keys.sort %]
-<a href="[% HTML.escape(nav_links.$key) %]">[% key %]</a>
+<a href="[% HTML.escape(nav_links.$key.direct_url()) %]"
+title="[% nav_links.$key.title() %]">[% key %]</a>
 [% END %]
 </div>
 <div class="navbar">
