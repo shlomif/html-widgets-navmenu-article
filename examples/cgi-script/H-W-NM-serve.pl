@@ -380,6 +380,12 @@ push @pages,
 
 my $cgi = CGI->new();
 my $path_info = $cgi->path_info();
+if ($cgi->param("hi"))
+{
+    print $cgi->header(-type => "text/plain");
+    print (map { "$_ => $ENV{$_}\n" } keys(%ENV));
+    exit;
+}
 
 my $found = 0;
 PAGE_LOOP:
@@ -391,7 +397,7 @@ foreach my $page (@pages)
     if ($path_info eq "/$path")
     {
         $found = 1;
-        render_page($path, $title, $content);
+        render_page("/".$path, $title, $content);
         last;
     }    
 }
@@ -401,7 +407,7 @@ sub render_page
     my ($path, $title, $content) = @_;
     my $nav_menu = 
         HTML::Widgets::NavMenu->new(
-            path_info => "/$path",
+            path_info => "$path",
             current_host => "default",
             hosts => \%hosts,
             tree_contents => $nav_menu_tree,
@@ -425,7 +431,7 @@ sub render_page
         'nav_menu_text' => join("\n", @{$nav_menu_results->{'html'}}) . "\n",
         'content' => $content . "\n",
         'breadcrumbs' => $nav_menu_results->{leading_path},
-        'nav_links' => $nav_menu_results->{'nav_links'},
+        'nav_links' => $nav_menu_results->{'nav_links_obj'},
     };
 
     my $nav_links_template = <<'EOF';
@@ -441,7 +447,9 @@ sub render_page
 [% css_style %]
 </style>
 [% FOREACH key = nav_links.keys.sort %]
-<link rel="[% key %]" href="[% HTML.escape(nav_links.$key) %]" />
+<link rel="[% key %]" 
+href="[% HTML.escape(nav_links.$key.direct_url()) %]" 
+title="[% nav_links.$key.title() %]" />
 [% END %]
 </head>
 <body>
@@ -456,7 +464,8 @@ sub render_page
 </div>
 <div class="navlinks">
 [% FOREACH key = nav_links.keys.sort %]
-<a href="[% HTML.escape(nav_links.$key) %]">[% key %]</a>
+<a href="[% HTML.escape(nav_links.$key.direct_url()) %]"
+title="[% nav_links.$key.title() %]">[% key %]</a>
 [% END %]
 </div>
 <div class="navbar">
@@ -475,7 +484,12 @@ EOF
 
 if (!$found)
 {
-    print $cgi->header();
-    print "<html><body>Page not found!</body></html>\n";
+    eval {
+    render_page($path_info, "Not a title", "Page Contents");
+    };
+    if ($@)
+    {
+        $@->CGIpm_perform_redirect($cgi);
+    }
 }
 
