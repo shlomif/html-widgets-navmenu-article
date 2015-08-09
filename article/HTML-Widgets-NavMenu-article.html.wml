@@ -43,21 +43,21 @@ using HTML::Widgets::NavMenu</h1>
 
 <p>
 Navigation menus are a group of links given at one side of the page that allows
-one to navigate to different places of a web-site. Navigation menus allow 
+one to navigate to different places of a web-site. Navigation menus allow
 visitors of one's site to explore other pages of the site, and to find
-what they want more easily. As such, they can be a useful addition to one's 
+what they want more easily. As such, they can be a useful addition to one's
 web-site.
 </p>
 
 <p>
-The web is not short of examples for navigation menus. A simple navigation menu made out of images can be found on <a href="http://www.paulgraham.com/">Paul 
+The web is not short of examples for navigation menus. A simple navigation menu made out of images can be found on <a href="http://www.paulgraham.com/">Paul
 Graham's homepage</a>. One can see that it doesn't change as the site visitor
 move to different pages of the site. A more sophisticated one can be found
-on <a href="http://www.kde.org/">the homepage of the KDE 
-desktop environment</a>. There we see that if we press on 
+on <a href="http://www.kde.org/">the homepage of the KDE
+desktop environment</a>. There we see that if we press on
 <a href="http://www.kde.org/screenshots/">the link to the screenshots</a> we
 get a sub-menu with the different KDE versions with which the screenshots were
-taken. Similar expansions and un-expansions of the menu are present for some 
+taken. Similar expansions and un-expansions of the menu are present for some
 of its other items.
 </p>
 
@@ -80,16 +80,16 @@ entire tree won't be displayed at once.
 <h3>Next/Previous/Up Links to Traverse a Site</h3>
 
 <p>
-Many sites provide links to traverse the pages of the site in order: A 
-<b>"Next" Link</b> to go to the next page, a <b>"Previous" Link</b> to go 
+Many sites provide links to traverse the pages of the site in order: A
+<b>"Next" Link</b> to go to the next page, a <b>"Previous" Link</b> to go
 to the previous page, an <b>"Up" link</b> to go to the section containing the
 current page, a <b>"Contents" link</b> to go to the main page, and so on.
 </p>
 
 <p>
-These link can be implemented using the HTML <tt>&lt;head&gt;</tt> tag 
+These link can be implemented using the HTML <tt>&lt;head&gt;</tt> tag
 <tt>&lt;link rel="next" href="" /&gt;</tt>. directives. These in turn are
-supported by Mozilla, Mozilla Firefox and Opera. Or they can be visible in 
+supported by Mozilla, Mozilla Firefox and Opera. Or they can be visible in
 the HTML, as is the case with <a href="http://www.gnu.org/software/make/manual/html_node/make_toc.html">GNU Documentation</a>.
 </p>
 
@@ -101,11 +101,11 @@ links to traverse the tree node by node.
 <h3>Site Maps and Breadcrumb Trails</h3>
 
 <p>
-Some other navigation aids provided by sites include a site map (as 
+Some other navigation aids provided by sites include a site map (as
 <a href="http://www.catb.org/~esr/sitemap.html">the one on Eric S. Raymond's
 homepage</a>), and a breadcrumbs trail. A breadcrumbs trail is a path
 of the components of the navigation menu that leads to the current page.
-An <a href="http://search.cpan.org/dist/Module-Build/lib/Module/Build/Cookbook.pm">example can be found on search.cpan.org</a> at the top. 
+An <a href="http://search.cpan.org/dist/Module-Build/lib/Module/Build/Cookbook.pm">example can be found on search.cpan.org</a> at the top.
 ("Ken Williams &gt; Module-Build &gt; Module::Build::Cookbook" in our case).
 </p>
 
@@ -120,9 +120,9 @@ appear in the navigation menu, but are not part of the site flow.
 <h2>Introducing HTML::Widgets::NavMenu</h2>
 
 <p>
-So how can we do all of this? 
-<a href="http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/">HTML::Widgets::NavMenu</a> 
-is a <a href="http://www.cpan.org/">CPAN</a> module for maintaining 
+So how can we do all of this?
+<a href="http://web-cpan.berlios.de/modules/HTML-Widgets-NavMenu/">HTML::Widgets::NavMenu</a>
+is a <a href="http://www.cpan.org/">CPAN</a> module for maintaining
 navigation menus and site flow
 in general. It supports all of the mentioned patterns and some others, has a
 comprehensive test suite, and still actively maintained. I have successfully
@@ -134,13 +134,13 @@ it was used by a different person for his own site.
 
 <p>
 Using this module, one can easily generate and maintain such navigation menus
-in Perl. The rest of the article will show you how to do it. The module is 
+in Perl. The rest of the article will show you how to do it. The module is
 generic enough so that it can be used to generate static HTML, or within
 server-side scripts (CGI, mod_perl, etc.) to generate HTML on the fly.
 </p>
 
 <p>
-To install it use a CPAN front-end by issuing a command like 
+To install it use a CPAN front-end by issuing a command like
 <tt>perl -MCPANPLUS -e "install HTML::Widgets::NavMenu"</tt> or
 <tt>perl -MCPAN -e "install HTML::Widgets::NavMenu"</tt>.
 </p>
@@ -153,9 +153,9 @@ and two other pages.
 </p>
 
 <p>
-You can see 
-<a href="<source_link "simple/H-W-NM-simple.pl" />">the 
-complete code for this example</a>, and please go over it and use it as a 
+You can see
+<a href="<source_link "simple/H-W-NM-simple.pl" />">the
+complete code for this example</a>, and please go over it and use it as a
 reference. We will go over it now, to explain it.
 </p>
 
@@ -187,7 +187,7 @@ EOF
 We define a CSS stylesheet to make things nicer visually.
 </p>
 <pre>
-my $nav_menu_tree = 
+my $nav_menu_tree =
 {
     'host' =&gt; "default",
     'text' =&gt; "Top 1",
@@ -224,13 +224,13 @@ hosts on several domains. In our case, we're using just one host, so we just
 say "default" here.
 </li>
 <li>
-<tt>text</tt> - this indicates what will be placed inside the 
+<tt>text</tt> - this indicates what will be placed inside the
 &lt;a&gt;...&lt;/a&gt; tag (or alternatively, the &lt;b&gt; tag if it's
-the current page). 
+the current page).
 </li>
 <li>
-<tt>title</tt> - this is a text that will be placed as a <tt>title</tt> 
-attribute to a hyperlink. (which is usually displayed as a tooltip). It can 
+<tt>title</tt> - this is a text that will be placed as a <tt>title</tt>
+attribute to a hyperlink. (which is usually displayed as a tooltip). It can
 be used to put some more detailed information, and keep the link text itself
 short.
 </li>
@@ -255,13 +255,13 @@ rendering starts from its sub-items.
 <pre>
 my %hosts =
 (
-    'hosts' =&gt; 
-    { 
-        'default' =&gt; 
-        { 
-            'base_url' =&gt; ("http://web-cpan.berlios.de/modules/" . 
+    'hosts' =&gt;
+    {
+        'default' =&gt;
+        {
+            'base_url' =&gt; ("http://web-cpan.berlios.de/modules/" .
                 "HTML-Widgets-NavMenu/article/examples/simple/dest/"),
-        }, 
+        },
     },
 );
 </pre>
@@ -290,7 +290,7 @@ EOF
 </pre>
 
 <p>
-The purpose of this array is to enumerate the pages, and give each one 
+The purpose of this array is to enumerate the pages, and give each one
 the &lt;title&gt; tag and &lt;h1&gt; title and the content that it contains.
 It's not something that HTML-Widgets-NavMenu - it is something that this script
 uses to render meaningful pages.
@@ -302,7 +302,7 @@ foreach my $page (@pages)
     my $path = $page-&gt;{'path'};
     my $title = $page-&gt;{'title'};
     my $content = $page-&gt;{'content'};
-    my $nav_menu = 
+    my $nav_menu =
         HTML::Widgets::NavMenu-&gt;new(
             path_info =&gt; "/$path",
             current_host =&gt; "default",
@@ -313,7 +313,7 @@ foreach my $page (@pages)
     my $nav_menu_results = $nav_menu-&gt;render();
 
     my $nav_menu_text = join("\n", @{$nav_menu_results-&gt;{'html'}});
-    
+
     my $file_path = $path;
     if (($file_path =~ m{/$}) || ($file_path eq ""))
     {
@@ -326,12 +326,12 @@ foreach my $page (@pages)
     mkpath($1, 0, 0755);
     open my $out, "&gt;", $full_path or
         die "Could not open \"$full_path\" for writing!";
-    
+
     print {$out} &lt;&lt;"EOF";
 &lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
 &lt;!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;    
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;$title&lt;/title&gt;
@@ -357,12 +357,12 @@ EOF
 
 <p>
 This loop iterates over all the pages and renders each one in turn. If the
-directory up to the file does not exist it is constructed using the 
+directory up to the file does not exist it is constructed using the
 <tt>mkpath()</tt> function. The lines that most concern us are:
 </p>
 
 <pre>
-    my $nav_menu = 
+    my $nav_menu =
         HTML::Widgets::NavMenu-&gt;new(
             path_info =&gt; "/$path",
             current_host =&gt; "default",
@@ -376,16 +376,16 @@ directory up to the file does not exist it is constructed using the
 </pre>
 
 <p>
-We can see that a new navigation menu is initialized. It is given four named 
-parameters. <tt>path_info</tt> is the path within the host. Note that as 
+We can see that a new navigation menu is initialized. It is given four named
+parameters. <tt>path_info</tt> is the path within the host. Note that as
 opposed to the paths in the navigation menu, it starts with a slash. This is
 to allow some CGI-related redirections. <tt>current_host</tt> is the current
-host (again - it's <tt>default</tt>). Finally, <tt>hosts</tt> and 
+host (again - it's <tt>default</tt>). Finally, <tt>hosts</tt> and
 <tt>tree_contents</tt> point to hosts and the tree of contents.
 </p>
 <p>
 We call the object <tt>render()</tt> method, to return the results. The results
-are returned in a hash reference, with the navigation menu results as an 
+are returned in a hash reference, with the navigation menu results as an
 array of tags pointed by the <tt>html</tt> key. So we join them using join
 and return them.
 </p>
@@ -398,13 +398,13 @@ entry is turned into bold, and its link canceled.
 <h2>A More Complex Example</h2>
 
 <p>
-Now let's look at <a href="<source_link "complex/H-W-NM-complex.pl" />">a more 
+Now let's look at <a href="<source_link "complex/H-W-NM-complex.pl" />">a more
 complex example</a>. This time the tree is considerably larger and is also
 nested. There are now <tt>'subs'</tt> of other pages.
 </p>
 
 <p>
-The <a href="<exalink "complex/dest/" />">final site</a> has a menu. When 
+The <a href="<exalink "complex/dest/" />">final site</a> has a menu. When
 accessing a page (for example <a href="<exalink "complex/dest/me/" />">the About
 Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 </p>
@@ -414,24 +414,24 @@ Myself page</a>), its sub-menu is expanded, and one can see its sub-items.
 <p>
 What we'll do now is add a breadcrumbs trail, navigation links, and a site
 map to the site. You can inspect
-<a href="<source_link "with-embellishments/H-W-NM-embellish.pl" />">the new 
+<a href="<source_link "with-embellishments/H-W-NM-embellish.pl" />">the new
 code</a> to see if you understand it and
 <a href="<exalink "with-embellishments/dest/" />">view the final site</a>.
 </p>
 
 <p>
 As can be noticed a breadcrumbs trail was added right at the top. Below it
-is a toolbar with navigation links like "next", "previous" or "up". Finally, 
+is a toolbar with navigation links like "next", "previous" or "up". Finally,
 <a href="<exalink "with-embellishments/dest/site-map/" />">a site map</a>
-was added. Now let's go over the 
-<a href="<diff_link "complex-2-embellish-delta.diff" />" 
-title="the difference from the previous version in patch format" 
+was added. Now let's go over the
+<a href="<diff_link "complex-2-embellish-delta.diff" />"
+title="the difference from the previous version in patch format"
 rel="patch">code's modifications</a>:
 </p>
 
 <ol>
 <li>
-We now make use of <a href="http://www.template-toolkit.org/">the Template 
+We now make use of <a href="http://www.template-toolkit.org/">the Template
 Toolkit</a> to render the page. So we load the <tt>Template</tt> module, and
 then proceed to fill in the variables of the template, to define the
 template itself and to process it into the output file.
@@ -441,16 +441,16 @@ Several styles were added to the CSS stylesheet. They are meant
 to make the modified page look nicer.
 </li>
 <li>
-A template portion to transform a breadcrumbs trail object as returned by 
+A template portion to transform a breadcrumbs trail object as returned by
 HTML-Widgets-NavMenu into HTML. It should not be hard to understand.
 </li>
 <li>
-A entry with a link to the site map page was added to the bottom of the 
+A entry with a link to the site map page was added to the bottom of the
 navigation menu tree.
 </li>
 <li>
-A code to add the site map page with its contents to the <tt>@pages</tt> 
-array was added. As can be seen, it initializes an 
+A code to add the site map page with its contents to the <tt>@pages</tt>
+array was added. As can be seen, it initializes an
 <tt>HTML::Widgets::NavMenu</tt> with the appropriate URL, and then uses
 its <tt>gen_site_map()</tt> function.
 </li>
@@ -459,8 +459,8 @@ Some code was added to generate the navigation links. The
 navigation links are returned as an hash reference with the keys being the
 relevance of the link, and the value being an object supplying information
 about the link (like <tt>direct_url()</tt> or <tt>title()</tt>). There are
-two loops there that for each link renders it into either the HTML 
-<tt>&lt;head&gt;</tt> tag <tt>&lt;link&gt;</tt> elements, or the toolbar that 
+two loops there that for each link renders it into either the HTML
+<tt>&lt;head&gt;</tt> tag <tt>&lt;link&gt;</tt> elements, or the toolbar that
 will be presented on the page.
 </li>
 <li>
@@ -472,10 +472,10 @@ the page.
 <h2>Fine-Grained Site Flow</h2>
 
 <p>
-In 
+In
 <a href="<source_link "fine-grained-site-flow/H-W-NM-fine-grained-site-flow.pl" />">this
-example</a> we'll modify 
-<a href="<exalink "fine-grained-site-flow/dest/" />">the new web-site</a> to 
+example</a> we'll modify
+<a href="<exalink "fine-grained-site-flow/dest/" />">the new web-site</a> to
 have a more sophisticated site flow.
 <a href="<diff_link "embellish-2-fine-grained-delta.diff" />" rel="patch">Looking
 at the changes</a> one can see that several new keys were added to the
@@ -485,8 +485,8 @@ tree's items. Let's see what implications they had on the site.
 <ol>
 <li>
 Both English Resum&eacute;s were marked with <tt>'skip' =&gt; 1,</tt>. This
-caused these pages to 
-<a href="<exalink "fine-grained-site-flow/dest/me/resumes/" />">appear in the 
+caused these pages to
+<a href="<exalink "fine-grained-site-flow/dest/me/resumes/" />">appear in the
 navigation menu</a>, but not to be part of the traversal flow. So if we click
 "next" at that page, it will skip them both. Also if we press "prev" at
 <a href="<exalink "fine-grained-site-flow/dest/humour/" />">the page that
@@ -498,7 +498,7 @@ it to expand on all pages of the site.
 </li>
 <li>
 <tt>'expand'</tt> was set to a regular expression for the Software section. As
-a result accessing 
+a result accessing
 <a href="<exalink "fine-grained-site-flow/dest/perl/japhs/" />">a page that
 isn't specified in the navigation menu</a>, but matches that regular expression,
 causes the Software section to expand there.
@@ -506,8 +506,8 @@ causes the Software section to expand there.
 <li>
 <a href="<exalink "fine-grained-site-flow/dest/software-tools" />">The software
 tools page</a> was marked as <tt>'hide' =&gt; 1</tt>. What happened is that
-it was removed from the navigation menu, but is still traversed in the site 
-flow. So for example, clicking on "next" in 
+it was removed from the navigation menu, but is still traversed in the site
+flow. So for example, clicking on "next" in
 <a href="<exalink "fine-grained-site-flow/dest/open-source/bits.html" />">the
 preceding page</a> will reach it.
 </li>
@@ -517,18 +517,18 @@ preceding page</a> will reach it.
 
 <p>
 Until now we have demonstrated generating a set of static HTML pages. Now,
-we'll convert the code to run dynamically on the server. We'll use 
+we'll convert the code to run dynamically on the server. We'll use
 <a href="http://search.cpan.org/dist/CGI.pm/">the CGI.pm</a> module which
 is very ubiquitous and is bundled with Perl.
 </p>
 
 <p>
-Converting to <a href="<source_link "cgi-script/H-W-NM-serve.pl" />">the CGI 
-script</a> did not require too many 
-<a href="<diff_link "fine-grained-2-cgi.diff" />" 
+Converting to <a href="<source_link "cgi-script/H-W-NM-serve.pl" />">the CGI
+script</a> did not require too many
+<a href="<diff_link "fine-grained-2-cgi.diff" />"
 rel="patch">changes</a>. What happens is that inside the page loop, we just
-check if the page matches the CGI path info (I.e: the path appended after 
-the CGI script name), and if it does we call the <tt>render_page()</tt> 
+check if the page matches the CGI path info (I.e: the path appended after
+the CGI script name), and if it does we call the <tt>render_page()</tt>
 function.
 </p>
 
@@ -540,24 +540,24 @@ we check if a page was found and if not, display an error page.
 
 <p>
 Note that looking for the suitable page in this script is done in a sub-optimal
-manner. In a better-engineered script, the page paths should be kept in a 
+manner. In a better-engineered script, the page paths should be kept in a
 persistent hash, from will the path info will be looked up.
 </p>
 
 <h2>Conclusion</h2>
 
 <p>
-This article demonstrated how HTML::Widgets::NavMenu can be used to 
+This article demonstrated how HTML::Widgets::NavMenu can be used to
 maintain navigation menus and organize site flow. Reading its documentation
 may reveal other useful features of it. So, you no longer have an excuse for
-not having such niceties as were demonstrated here on your site. Happy 
+not having such niceties as were demonstrated here on your site. Happy
 hacking!
 </p>
 
 <h2>Acknowledgments</h2>
 
 <p>
-Thanks to Diego Iastrubni and Aankhen and chromatic (my editor) for giving 
+Thanks to Diego Iastrubni and Aankhen and chromatic (my editor) for giving
 some useful commentary on early drafts of this document.
 </p>
 

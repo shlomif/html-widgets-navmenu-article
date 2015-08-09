@@ -2,7 +2,7 @@
     - http://www.shlomifish.org/
     - http://perl-begin.berlios.de/
     - http://www.paulgraham.com/
-    
+
 * Common Patterns in Navigation Menus and Site Flow
     - A Tree of Pages
     - Expansion and unexpansion. (based on the current location)
@@ -33,8 +33,8 @@
 * Making some pages hidden.
 
 * Conclusion:
-    - HTML::Widgets::NavMenu can be used to maintain navigation menus and 
-    organize site flow. 
-    - You no longer have an excuse for not having such niceties on your 
+    - HTML::Widgets::NavMenu can be used to maintain navigation menus and
+    organize site flow.
+    - You no longer have an excuse for not having such niceties on your
     sites.
 
