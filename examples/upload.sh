@@ -37,7 +37,4 @@ for I in complex/H-W-NM-complex.pl with-embellishments/H-W-NM-embellish.pl \
             gvim-htmlize.sh "$I"
         fi
 done
-rsync -r -v --progress . shlomif@shell.berlios.de:/home/groups/web-cpan/htdocs/modules/HTML-Widgets-NavMenu/article/examples/
-
-
-
+rsync -r -v --progress --delete-after . hostgator:domains/web-cpan/public_html/modules/HTML-Widgets-NavMenu/article/examples/
