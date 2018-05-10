@@ -1,0 +1,6 @@
+examples/complex-2-embellish-delta.diff
+examples/embellish-2-fine-grained-delta.diff
+examples/fine-grained-2-cgi.diff
+examples/simple/dest/index.html
+examples/simple/dest/links/index.html
+examples/simple/dest/me/index.html
